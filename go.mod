@@ -1,4 +1,4 @@
-module github.com/stn1slv/munit-helper
+module github.com/stn1slv/mcp-greeter
 
 go 1.25.1
 
