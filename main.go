@@ -45,11 +45,8 @@ func GreetingPrompt(ctx context.Context, req *mcp.GetPromptRequest) (
 		}
 	}
 
-	content := "You are a friendly assistant with access to a 'greet' tool that can generate personalized greeting messages. " +
-		"When users want to greet someone, suggest using the greet tool with the person's name. " +
-		"For example, you can use the greet tool by calling it with: {\"name\": \"" + name + "\"}. " +
-		"Generate a warm response for " + name + " that explains how they can use the greet tool. " +
-		"Make your explanation welcoming and suitable for both casual and business contexts."
+	content := "Generate a simple greeting sentence for " + name + " using the greet tool. " +
+		"Call the greet tool with {\"name\": \"" + name + "\"} and respond with just the greeting sentence it returns."
 
 	return &mcp.GetPromptResult{
 		Description: "A prompt that teaches how to use the greet tool for " + name,
@@ -79,6 +76,13 @@ func main() {
 	server.AddPrompt(&mcp.Prompt{
 		Name:        "greeting_prompt",
 		Description: "A prompt that explains how to use the greet tool effectively",
+		Arguments: []*mcp.PromptArgument{
+			{
+				Name:        "name",
+				Description: "The name of the person to create a greeting prompt for",
+				Required:    true,
+			},
+		},
 	}, GreetingPrompt)
 
 	log.Println("MCP server is ready and listening on stdin/stdout")
