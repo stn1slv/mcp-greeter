@@ -67,10 +67,16 @@ func main() {
 	log.Println("Starting MCP server...")
 
 	// Create a server with a tool and prompt resource.
-	server := mcp.NewServer(&mcp.Implementation{Name: "greeter", Version: "v0.0.1"}, nil)
+	server := mcp.NewServer(&mcp.Implementation{
+		Name:    "greeter-mcp",
+		Version: "v0.0.1",
+	}, nil)
 
 	// Add the greeting tool
-	mcp.AddTool(server, &mcp.Tool{Name: "greet", Description: "Generate a personalized greeting message"}, SayHi)
+	mcp.AddTool(server, &mcp.Tool{
+		Name:        "greet",
+		Description: "Generate a personalized greeting message",
+	}, SayHi)
 
 	// Add the greeting prompt resource
 	server.AddPrompt(&mcp.Prompt{
